@@ -15,3 +15,46 @@ var imageName = 'techboost/dotnetcoreapp'
 var startupCommand = ''
 
 // TODO: complete this script
+resource appServicePlan 'Microsoft.Web/serverfarms@2021-01-01' = {
+  name: appServicePlanName
+  location: location
+  sku: {
+    name: sku
+  }
+}
+
+resource webApp 'Microsoft.Web/sites@2021-01-01' = {
+  name: webAppName
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.id
+  }
+}
+
+resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
+  name: logAnalyticsName
+  location: location
+  sku: {
+    name: 'PerGB2018'
+  }
+}
+
+resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
+  name: appInsightsName
+  location: location
+  kind: 'web'
+  properties: {
+    Application_Type: 'web'
+  }
+}
+
+resource containerRegistry 'Microsoft.ContainerRegistry/registries@2019-12-01-preview' = {
+  name: registryName
+  location: location
+  sku: {
+    name: registrySku
+  }
+  properties: {
+    adminUserEnabled: true
+  }
+}
