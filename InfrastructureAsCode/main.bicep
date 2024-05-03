@@ -1,5 +1,5 @@
 @description('Environment of the web app')
-param environment string = 'dev'
+param environment string = 'prod'
 
 @description('Location of services')
 param location string = resourceGroup().location
@@ -11,8 +11,8 @@ var appInsightsName = '${uniqueString(resourceGroup().id)}-mpnp-ai'
 var sku = 'P0V3'
 var registryName = '${uniqueString(resourceGroup().id)}mpnpreg'
 var registrySku = 'Standard'
-var imageName = 'techboost/dotnetcoreapp'
-var startupCommand = ''
+
+
 
 // TODO: complete this script
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-01-01' = {
@@ -34,9 +34,6 @@ resource webApp 'Microsoft.Web/sites@2021-01-01' = {
 resource logAnalytics 'Microsoft.OperationalInsights/workspaces@2020-03-01-preview' = {
   name: logAnalyticsName
   location: location
-  sku: {
-    name: 'PerGB2018'
-  }
 }
 
 resource appInsights 'Microsoft.Insights/components@2020-02-02-preview' = {
