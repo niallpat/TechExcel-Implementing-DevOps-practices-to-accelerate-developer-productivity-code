@@ -23,5 +23,5 @@ jobs:
         with:
           scope: resourcegroup
           resourceGroupName: ${{ secrets.AZURE_RESOURCE_GROUP }}
-          template: .\InfrastructureAsCode\main.bicep
+          template: .\main.bicep
           
